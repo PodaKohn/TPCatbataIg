@@ -1,121 +1,81 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
+import type { Post } from './types'
+import { catUsernames, captions, currentUser, stories } from './data/user'
+import Sidebar from './components/Sidebar'
+import Header from './components/Header'
+import Stories from './components/Stories'
+import Feed from './components/Feed'
+import PostPanel from './components/PostModal'
+import Profile from './components/Profile'
+import './index.css'
+
+const API_KEY = 'live_E42PlIdpKknvFVOV0foHIiofP26r94HMCHUsoZeFnvUbB8UwYbQweYftFBNWobjl'
+
+type View = 'feed' | 'profile'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [posts, setPosts] = useState<Post[]>([])
+  const [selectedPost, setSelectedPost] = useState<Post | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [activeView, setActiveView] = useState<View>('feed')
+
+  useEffect(() => {
+    axios
+      .get('https://api.thecatapi.com/v1/images/search', {
+        params: { limit: 12, has_breeds: 0 },
+        headers: { 'x-api-key': API_KEY },
+      })
+      .then((res) => {
+        const mapped: Post[] = res.data.map((cat: any, i: number) => ({
+          id: cat.id,
+          url: cat.url,
+          width: cat.width,
+          height: cat.height,
+          likes: Math.floor(Math.random() * 9000) + 500,
+          caption: captions[i % captions.length],
+          username: catUsernames[i % catUsernames.length],
+          avatar: `https://api.dicebear.com/7.x/adventurer/svg?seed=${catUsernames[i]}`,
+          timestamp: `hace ${Math.floor(Math.random() * 23) + 1}h`,
+          comments: [
+            { id: 1, username: '@micho', text: '¡Qué hermoso! 😍' },
+            { id: 2, username: '@luna', text: 'Me encanta esta foto 🐾' },
+            { id: 3, username: '@neko', text: 'Iconic 👑' },
+          ],
+        }))
+        setPosts(mapped)
+      })
+      .finally(() => setLoading(false))
+  }, [])
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
+    <div className="app">
+      <Sidebar
+        user={currentUser}
+        activeView={activeView}
+        onNavigate={setActiveView}
+      />
+      <div className="main">
+        <Header />
+        <div className="content">
+          {activeView === 'feed' ? (
+            <>
+              <Stories stories={stories} />
+              <Feed posts={posts} loading={loading} onSelect={setSelectedPost} />
+            </>
+          ) : (
+            <Profile
+              user={currentUser}
+              posts={posts}
+              onSelect={setSelectedPost}
+            />
+          )}
         </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
-
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+      </div>
+      {selectedPost && (
+        <PostPanel post={selectedPost} onClose={() => setSelectedPost(null)} />
+      )}
+    </div>
   )
 }
 

@@ -11,13 +11,14 @@ export const currentUser: User = {
 }
 
 export const stories: Story[] = [
-  { id: 1, username: '@micho', avatar: 'https://api.dicebear.com/7.x/adventurer/svg?seed=micho', seen: false },
-  { id: 2, username: '@luna', avatar: 'https://api.dicebear.com/7.x/adventurer/svg?seed=luna', seen: false },
-  { id: 3, username: '@neko', avatar: 'https://api.dicebear.com/7.x/adventurer/svg?seed=neko', seen: true },
-  { id: 4, username: '@felix', avatar: 'https://api.dicebear.com/7.x/adventurer/svg?seed=felix', seen: false },
-  { id: 5, username: '@mishi', avatar: 'https://api.dicebear.com/7.x/adventurer/svg?seed=mishi', seen: true },
-  { id: 6, username: '@gatito', avatar: 'https://api.dicebear.com/7.x/adventurer/svg?seed=gatito', seen: false },
-  { id: 7, username: '@bata', avatar: 'https://api.dicebear.com/7.x/adventurer/svg?seed=bata', seen: false },
+  { id: 1, username: 'connor', avatar: 'https://api.dicebear.com/7.x/adventurer/svg?seed=connor', seen: false },
+  { id: 2, username: 'podasorapop', avatar: 'https://api.dicebear.com/7.x/adventurer/svg?seed=podasorapop', seen: false },
+  { id: 3, username: 'batata', avatar: 'https://api.dicebear.com/7.x/adventurer/svg?seed=batata', seen: true },
+  { id: 4, username: 'ciruja', avatar: 'https://api.dicebear.com/7.x/adventurer/svg?seed=ciruja', seen: false },
+  { id: 5, username: 'momia', avatar: 'https://api.dicebear.com/7.x/adventurer/svg?seed=momia', seen: false },
+  { id: 6, username: 'cheff', avatar: 'https://api.dicebear.com/7.x/adventurer/svg?seed=cheff', seen: true },
+  { id: 7, username: 'iribasman', avatar: 'https://api.dicebear.com/7.x/adventurer/svg?seed=iribasman', seen: false },
+  { id: 8, username: 'señor_caca69', avatar: 'https://api.dicebear.com/7.x/adventurer/svg?seed=caca69', seen: false },
 ]
 
 export const catUsernames = [
@@ -27,10 +28,16 @@ export const catUsernames = [
 ]
 
 export const captions = [
-  'Lunes de siesta ', 'No me molesten, estoy ocupado ',
-  'El sol me llama ', 'Día de exploración ',
-  'Modo zen activado ', 'Esperando la cena... ',
-  'El mundo es mi almohada ', 'Vigilando el barrio ',
-  'Muy ocupado siendo hermoso ', 'Chill day ',
-  'No me importa nada ', 'Fotogénico por naturaleza',
+  'hoy escupí una bola de pelo que parecía testículo de Voldemort 🧙',
+  'me senté en mi propia cola y grité como si me hubieran pisado el alma',
+  'olí algo raro en el sillón y ahora no soy el mismo de antes',
+  'me caí de la cama persiguiendo una mosca imaginaria. no hubo testigos. no pasó nada',
+  'lamí el piso del baño por curiosidad científica. los resultados fueron decepcionantes',
+  'me quedé mirando la pared 40 minutos. encontré respuestas. no las voy a compartir',
+  'hice un ruido con la garganta que asustó al perro del vecino y a mí mismo',
+  'me metí en una bolsa de papel y me arrepentí a los 3 segundos pero no lo admití',
+  'estornudé y salió algo que prefiero no describir. hay fotos. no las voy a subir',
+  'me rascé la oreja con la pata trasera y me quedé trabado 20 minutos en esa posición',
+  'mordí un cable que "parecía inofensivo". spoiler: no lo era. estoy bien. el cable no',
+  'me perseguí la cola durante 8 minutos. la atrapé. no supe qué hacer después. la solté',
 ]

@@ -316,10 +316,11 @@ input { font-family: inherit; }
 .post-image {
   width: 100%; height: 100%;
   object-fit: cover;
+  transform: rotate(-3deg) scale(1.08);
   transition: transform 0.4s ease;
 }
 
-.post-card:hover .post-image { transform: scale(1.05); }
+.post-card:hover .post-image { transform: rotate(-3deg) scale(1.13); }
 
 .post-overlay {
   position: absolute;
@@ -413,6 +414,7 @@ input { font-family: inherit; }
   aspect-ratio: 1;
   object-fit: cover;
   flex-shrink: 0;
+  transform: rotate(-3deg) scale(1.08);
 }
 
 .panel-body {
@@ -539,9 +541,10 @@ input { font-family: inherit; }
 .profile-post-img {
   width: 100%; height: 100%;
   object-fit: cover;
+  transform: rotate(-3deg) scale(1.08);
   transition: transform 0.3s ease;
 }
-.profile-post:hover .profile-post-img { transform: scale(1.05); }
+.profile-post:hover .profile-post-img { transform: rotate(-3deg) scale(1.13); }
 
 .profile-post-overlay {
   position: absolute;
